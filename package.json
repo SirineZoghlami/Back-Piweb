@@ -1,0 +1,27 @@
+{
+  "name": "piweb-backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server/server.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.4",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.1.3"
+  }
+}
