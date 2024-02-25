@@ -1,21 +1,32 @@
-import  mongoose from 'mongoose';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 const { Schema } = mongoose;
 
+// Define roles enum
+const rolesEnum = ['Administrator', 'Energy Manager', 'Operator'];
+
 // Create schema
 const userSchema = new Schema({
-  name: {
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
     type: String,
     required: true,
   },
-  date: {
-    type: Date,
-    default: Date.now(),
-  },
+  role: {
+    type: String,
+    enum: rolesEnum,
+    required: true,
+  }
 });
-// const User = mongoose.model('user', userSchema)
-// export  {User };
 
+userSchema.methods.generateToken = function(){
+  return jwt.sign({id : this._id , role : this.role}, process.env.JWT_SECRET_KEY);
+}
 const User = mongoose.model('User', userSchema);
 
 export default User;

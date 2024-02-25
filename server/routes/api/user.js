@@ -1,6 +1,7 @@
 import express from 'express';
 // User model
 import User from '../../models/User.js';
+import bcrypt from 'bcryptjs'; // Import bcrypt for password hashing
 
 const userRouter = express.Router();
 /**
@@ -35,35 +36,6 @@ userRouter.get('/:id', (req, res) => {
       })
     );
 });
-
-/**
- * @route   POST api/users
- * @desc    Create a User
- * @access  Public
- */
-userRouter.post('/', (req, res) => {
-  const newUser = new User({
-    name: req.body.name,
-  });
-
-  newUser
-    .save()
-    .then(user =>
-      res.json({
-        success: true,
-        message: `${user.name} has been successful created`,
-        user:user
-      
-      })
-    )
-    .catch(err =>
-      res.json({
-        success: false,
-        message: `${err}`,
-      })
-    );
-});
-
 /**
  * @route   PUT api/users/:id
  * @desc    Update a User
