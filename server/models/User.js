@@ -3,10 +3,9 @@ import jwt from 'jsonwebtoken';
 
 const { Schema } = mongoose;
 
-// Define roles enum
+
 const rolesEnum = ['Administrator', 'Energy Manager', 'Operator'];
 
-// Create schema
 const userSchema = new Schema({
   username: {
     type: String,

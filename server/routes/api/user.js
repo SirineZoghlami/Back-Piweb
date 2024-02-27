@@ -1,7 +1,7 @@
 import express from 'express';
 // User model
 import User from '../../models/User.js';
-import bcrypt from 'bcryptjs'; // Import bcrypt for password hashing
+import bcrypt from 'bcryptjs'; 
 
 const userRouter = express.Router();
 /**
@@ -44,7 +44,7 @@ userRouter.get('/:id', (req, res) => {
 userRouter.put('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => {
-      // Update name here
+      
       user.set({ name: req.body.name });
       user.save().then(() =>
         res.json({

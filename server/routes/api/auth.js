@@ -7,7 +7,7 @@ import { validateRegisterUser } from '../../middleware/validator.js';
 export const authRouter = express.Router();
 
 /**
- * @desc register new user 
+ * @desc 
  * @route /api/auth/register
  * @method Post
  * @access public
@@ -18,12 +18,12 @@ authRouter.post('/register',asyncHandler(async(req,res)=>{
    if(error){
       return res.status(400).json({ message : error.details[0].message});
    }
-    // Check if the user already exists
+   
     const existingUser = await User.findOne({username :req.body.username});
     if(existingUser){
        return  res.status(400).json({message : "this user is allredy registered"});
     }
-    // Hash the password
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password,salt);
     const user = await User.create({
@@ -45,7 +45,7 @@ authRouter.post('/register',asyncHandler(async(req,res)=>{
 
 /**
  * @route   GET api/auth/login
- * @desc    Get all Users
+ * @desc    
  * @access  Public
  */
 

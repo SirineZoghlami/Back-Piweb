@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-// Require npm modules
 import express from 'express';
 import helmet from 'helmet';
 import  bodyParser from 'body-parser';
@@ -9,20 +8,20 @@ import userRouter from './routes/api/user.js';
 import {authRouter} from './routes/api/auth.js';
 dotenv.config();
 
-// Initialize app
+
 const app = express();
 
 const { PORT = 5000 ,dbpassword} = process.env;
-// Initialize middleware
+
 app.use(helmet());
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(cors());
 app.use(express.static('./dist/'));
 
 
 
-// Use routes
+
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 
