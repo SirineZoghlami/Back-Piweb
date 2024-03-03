@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import machineRoutes from './routes/api/machineRoutes.js';
+import armoireRoutes from './routes/api/armoireRoutes.js'; 
+
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('./dist/'));
 app.use('/api', machineRoutes);
+app.use('/api', armoireRoutes);
 
 app.get('/api', (req, res) => {
   res.json({
