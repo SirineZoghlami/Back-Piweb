@@ -1,70 +1,69 @@
-import Armoire from '../models/armoire.js'; // Importer le modèle Mongoose pour l'armoire
+import Armoire from '../models/armoire.js'; // Import the Mongoose model for Armoire
 
-// Fonction pour créer un nouveau document d'armoire
+// Function to create a new armoire document
 export const createArmoire = async (req, res) => {
   try {
-    const { name, description } = req.body;
-    const newArmoire = new Armoire({ name, description });
+    const newArmoire = new Armoire(req.body);
     const savedArmoire = await newArmoire.save();
-    res.status(201).json({ message: 'Armoire créée avec succès', armoire: savedArmoire });
+    res.status(201).json({ message: 'Armoire created successfully', armoire: savedArmoire });
   } catch (error) {
-    console.error('Erreur lors de la création de l\'armoire :', error);
-    res.status(500).json({ error: 'Échec de la création de l\'armoire' });
+    console.error('Error creating armoire:', error);
+    res.status(500).json({ error: 'Failed to create armoire' });
   }
 };
 
-// Fonction pour récupérer toutes les armoires
+// Function to retrieve all armoires
 export const getAllArmoires = async (req, res) => {
   try {
     const armoires = await Armoire.find();
     res.status(200).json(armoires);
   } catch (error) {
-    console.error('Erreur lors de la récupération des armoires :', error);
-    res.status(500).json({ error: 'Échec de la récupération des armoires' });
+    console.error('Error retrieving armoires:', error);
+    res.status(500).json({ error: 'Failed to retrieve armoires' });
   }
 };
 
-// Fonction pour récupérer une armoire par son ID
+// Function to retrieve an armoire by its ID
 export const getArmoireById = async (req, res) => {
   const { id } = req.params;
   try {
     const armoire = await Armoire.findById(id);
     if (!armoire) {
-      return res.status(404).json({ error: 'Armoire non trouvée' });
+      return res.status(404).json({ error: 'Armoire not found' });
     }
     res.status(200).json(armoire);
   } catch (error) {
-    console.error('Erreur lors de la récupération de l\'armoire :', error);
-    res.status(500).json({ error: 'Échec de la récupération de l\'armoire' });
+    console.error('Error retrieving armoire:', error);
+    res.status(500).json({ error: 'Failed to retrieve armoire' });
   }
 };
 
-// Fonction pour mettre à jour une armoire
+// Function to update an armoire by its ID
 export const updateArmoire = async (req, res) => {
   const { id } = req.params;
   try {
     const updatedArmoire = await Armoire.findByIdAndUpdate(id, req.body, { new: true });
     if (!updatedArmoire) {
-      return res.status(404).json({ error: 'Armoire non trouvée' });
+      return res.status(404).json({ error: 'Armoire not found' });
     }
-    res.status(200).json({ message: 'Armoire mise à jour avec succès', armoire: updatedArmoire });
+    res.status(200).json({ message: 'Armoire updated successfully', armoire: updatedArmoire });
   } catch (error) {
-    console.error('Erreur lors de la mise à jour de l\'armoire :', error);
-    res.status(500).json({ error: 'Échec de la mise à jour de l\'armoire' });
+    console.error('Error updating armoire:', error);
+    res.status(500).json({ error: 'Failed to update armoire' });
   }
 };
 
-// Fonction pour supprimer une armoire
+// Function to delete an armoire by its ID
 export const deleteArmoire = async (req, res) => {
   const { id } = req.params;
   try {
     const deletedArmoire = await Armoire.findByIdAndDelete(id);
     if (!deletedArmoire) {
-      return res.status(404).json({ error: 'Armoire non trouvée' });
+      return res.status(404).json({ error: 'Armoire not found' });
     }
-    res.status(200).json({ message: 'Armoire supprimée avec succès', armoire: deletedArmoire });
+    res.status(200).json({ message: 'Armoire deleted successfully', armoire: deletedArmoire });
   } catch (error) {
-    console.error('Erreur lors de la suppression de l\'armoire :', error);
-    res.status(500).json({ error: 'Échec de la suppression de l\'armoire' });
+    console.error('Error deleting armoire:', error);
+    res.status(500).json({ error: 'Failed to delete armoire' });
   }
 };

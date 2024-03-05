@@ -1,19 +1,50 @@
 import mongoose from 'mongoose';
 
-// Définir le schéma pour le modèle d'armoire
+// Define the schema for the Armoire model
 const armoireSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
+    tgbt_id: {
+        type: Number,
+        default: null
     },
-    description: {
+    nom: {
         type: String,
-        required: true
+        default: null
     },
-    // Ajoutez d'autres champs au besoin
+    dossier: {
+        type: String,
+        default: null
+    },
+    isactive: {
+        type: String,
+        default: null
+    },
+    isprod: {
+        type: Boolean,
+        default: null
+    },
+    adressip: {
+        type: String,
+        default: null
+    },
+    objectif_khw_t: {
+        type: Number,
+        default: null
+    },
+    interfaceweb: {
+        type: Boolean,
+        default: null
+    },
+    armoireprec: {
+        type: Number,
+        default: null
+    },
+    zone_id: {
+        type: Number,
+        default: null
+    }
 });
 
-// Créer le modèle d'armoire en utilisant le schéma
+// Create the Armoire model using the schema
 const Armoire = mongoose.model('Armoire', armoireSchema);
 
 export default Armoire;

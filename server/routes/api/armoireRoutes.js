@@ -9,19 +9,19 @@ import {
 
 const router = express.Router();
 
-// Route pour créer une nouvelle armoire
+// Route to create a new armoire
 router.post('/armoires', createArmoire);
 
-// Route pour récupérer toutes les armoires
+// Route to retrieve all armoires
 router.get('/armoires', getAllArmoires);
 
-// Route pour récupérer une armoire par son ID
+// Route to retrieve an armoire by its ID
 router.get('/armoires/:id', getArmoireById);
 
-// Route pour mettre à jour une armoire
+// Route to update an armoire
 router.put('/armoires/:id', updateArmoire);
 
-// Route pour supprimer une armoire
+// Route to delete an armoire
 router.delete('/armoires/:id', deleteArmoire);
 
 export default router;

@@ -4,15 +4,22 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import config from '../config/config.js'; 
+
 import machineRoutes from './routes/api/machineRoutes.js';
 import armoireRoutes from './routes/api/armoireRoutes.js'; 
-
 
 dotenv.config();
 
 const app = express();
 
 const { PORT = 5000 } = process.env;
+
+// Middleware to log incoming requests
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -28,10 +35,18 @@ app.get('/api', (req, res) => {
   });
 });
 
+const { uri, username, password, dbName } = config.mongo;
 
-const CONNECTION_URL = `mongodb+srv://Sirinezoghlami:q6su8XtRIoq9bAXU@cluster0.vsngh37.mongodb.net/EnergyGuard?retryWrites=true&w=majority&appName=Cluster0`;
-mongoose.connect(CONNECTION_URL, {})
-.then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)) )
-.catch((error) => console.log(error.message));
+mongoose.connect(`mongodb+srv://${username}:${password}@${uri}/${dbName}`)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
+// Middleware to log outgoing responses
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} ${res.statusCode}`);
+  });
+  next();
+});
 
+app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));

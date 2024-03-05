@@ -1,4 +1,4 @@
-import Machine from '../models/machine.js';
+import Machine from '../models/machine.js'; // Import the Mongoose model for Machine
 
 // Function to create a new machine document
 export const createMachine = async (req, res) => {
@@ -13,59 +13,58 @@ export const createMachine = async (req, res) => {
   }
 };
 
-// Function to get all machine documents
+// Function to retrieve all machines
 export const getAllMachines = async (req, res) => {
   try {
     const machines = await Machine.find();
     res.status(200).json(machines);
   } catch (error) {
-    console.error('Error fetching machines:', error);
-    res.status(500).json({ error: 'Failed to fetch machines' });
+    console.error('Error retrieving machines:', error);
+    res.status(500).json({ error: 'Failed to retrieve machines' });
   }
 };
 
-// Function to get a machine document by ID
+// Function to retrieve a machine by its ID
 export const getMachineById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
     const machine = await Machine.findById(id);
     if (!machine) {
       return res.status(404).json({ error: 'Machine not found' });
     }
     res.status(200).json(machine);
   } catch (error) {
-    console.error('Error fetching machine by ID:', error);
-    res.status(500).json({ error: 'Failed to fetch machine' });
+    console.error('Error retrieving machine:', error);
+    res.status(500).json({ error: 'Failed to retrieve machine' });
   }
 };
 
-// Function to update a machine document by ID
+// Function to update a machine by its ID
 export const updateMachineById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    const { name, description } = req.body;
-    const updatedMachine = await Machine.findByIdAndUpdate(id, { name, description }, { new: true });
+    const updatedMachine = await Machine.findByIdAndUpdate(id, req.body, { new: true });
     if (!updatedMachine) {
       return res.status(404).json({ error: 'Machine not found' });
     }
     res.status(200).json({ message: 'Machine updated successfully', machine: updatedMachine });
   } catch (error) {
-    console.error('Error updating machine by ID:', error);
+    console.error('Error updating machine:', error);
     res.status(500).json({ error: 'Failed to update machine' });
   }
 };
 
-// Function to delete a machine document by ID
+// Function to delete a machine by its ID
 export const deleteMachineById = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
     const deletedMachine = await Machine.findByIdAndDelete(id);
     if (!deletedMachine) {
       return res.status(404).json({ error: 'Machine not found' });
     }
-    res.status(200).json({ message: 'Machine deleted successfully' });
+    res.status(200).json({ message: 'Machine deleted successfully', machine: deletedMachine });
   } catch (error) {
-    console.error('Error deleting machine by ID:', error);
+    console.error('Error deleting machine:', error);
     res.status(500).json({ error: 'Failed to delete machine' });
   }
 };
