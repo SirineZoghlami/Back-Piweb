@@ -8,7 +8,7 @@ import config from '../config/config.js';
 
 import machineRoutes from './routes/api/machineRoutes.js';
 import armoireRoutes from './routes/api/armoireRoutes.js'; 
-
+import factureRoutes from './routes/api/factureRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -28,6 +28,7 @@ app.use(cors());
 app.use(express.static('./dist/'));
 app.use('/api', machineRoutes);
 app.use('/api', armoireRoutes);
+app.use('/api',factureRoutes);
 
 app.get('/api', (req, res) => {
   res.json({
