@@ -5,7 +5,11 @@ import helmet from 'helmet';
 import  bodyParser from 'body-parser';
 import  cors  from 'cors';
 import  mongoose from 'mongoose';
-import userRouter from './routes/api/user.js'
+import userRouter from './routes/api/user.js';
+import alarmeRouter from './routes/api/AirAlarme.js';
+import typealarmeRouter from './routes/api/Air_Typealarme.js';
+import usineRouter from './routes/api/Usine.js'
+
 dotenv.config();
 
 // Initialize app
@@ -20,9 +24,12 @@ app.use(cors());
 app.use(express.static('./dist/'));
 
 
-
 // Use routes
 app.use('/api/users', userRouter);
+app.use('/api/airalarmes', alarmeRouter);
+app.use('/api/airTypeAlarme', typealarmeRouter);
+app.use('/api/usine', usineRouter);
+
 
 app.get('/api', (req, res) => {
   res.json({
@@ -30,8 +37,9 @@ app.get('/api', (req, res) => {
   });
 });
 
-const CONNECTION_URL = `mongodb+srv://nejimarwan21:${dbpassword}@piwebcluster.yq3u1v6.mongodb.net/`;
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true, })
+
+const CONNECTION_URL = `mongodb+srv://ineslachkhem:piwebines@cluster0.kmdgs4p.mongodb.net/`;
+mongoose.connect(CONNECTION_URL, {  })
 .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)) )
 .catch((error) => console.log(error.message));
 
