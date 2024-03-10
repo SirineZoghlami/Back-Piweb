@@ -6,6 +6,7 @@ import  cors  from 'cors';
 import  mongoose from 'mongoose';
 import userRouter from './routes/api/user.js';
 import {authRouter} from './routes/api/auth.js';
+import airspvsRouter from './routes/api/airsuperviseur.js';
 dotenv.config();
 
 
@@ -21,7 +22,7 @@ app.use(express.static('./dist/'));
 
 
 
-
+app.use('/api/airspvs', airspvsRouter);
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 

@@ -21,7 +21,7 @@ authRouter.post('/register',asyncHandler(async(req,res)=>{
    
     const existingUser = await User.findOne({username :req.body.username});
     if(existingUser){
-       return  res.status(400).json({message : "this user is allredy registered"});
+       return  res.status(400).json({message : "this user is already registered"});
     }
     
     const salt = await bcrypt.genSalt(10);

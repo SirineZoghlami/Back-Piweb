@@ -1,7 +1,7 @@
 import express from 'express';
-// User model
+
 import User from '../../models/User.js';
-import bcrypt from 'bcryptjs'; 
+
 
 const userRouter = express.Router();
 /**
@@ -45,11 +45,11 @@ userRouter.put('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => {
       
-      user.set({ name: req.body.name });
+      user.set({ username: req.body.username });
       user.save().then(() =>
         res.json({
           success: true,
-          message: `${user.name} has been successful updated`,
+          message: `${user.username} has been successful updated`,
         })
       );
     })
@@ -72,7 +72,7 @@ userRouter.delete('/:id', (req, res) => {
       user.deleteOne().then(() =>
         res.json({
           success: true,
-          message: `${user.name} has been successful deleted`,
+          message: `${user.username} has been successful deleted`,
         })
       )
     )
