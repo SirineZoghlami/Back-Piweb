@@ -36,20 +36,14 @@ userRouter.get('/:id', (req, res) => {
       })
     );
 });
-/**
- * @route   PUT api/users/:id
- * @desc    Update a User
- * @access  Public
- */
 userRouter.put('/:id', (req, res) => {
   User.findById(req.params.id)
     .then(user => {
-      
-      user.set({ username: req.body.username });
+      user.set({ username: req.body.username, role: req.body.role }); // Update both username and role
       user.save().then(() =>
         res.json({
           success: true,
-          message: `${user.username} has been successful updated`,
+          message: `${user.username} has been successfully updated`,
         })
       );
     })
@@ -60,6 +54,7 @@ userRouter.put('/:id', (req, res) => {
       })
     );
 });
+
 
 /**
  * @route   DELETE api/users/:id
