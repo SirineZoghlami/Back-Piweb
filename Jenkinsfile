@@ -20,10 +20,16 @@ pipeline {
             }
         }
     
-    stage('SonarQube Analysis') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.host.url=http://92.168.1.19:9000 -Dsonar.login=squ_5193ad3ccfbd7c365e874f4ee6544aaf064b184e'
+       stage('SonarQube Analysis') {
+      steps{
+      script {  
+                    def scannerHome = tool 'scanner'
+                    withSonarQubeEnv {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                        }
+                } 
+              }  
             }
-        }
+
     }
 }
