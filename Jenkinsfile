@@ -35,7 +35,7 @@ pipeline {
       steps{
         
         script {
-         sh('npm run build-dev')
+         sh(' npm run build')
         }
       }
     }
