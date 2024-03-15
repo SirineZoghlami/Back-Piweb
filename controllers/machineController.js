@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions
 import Machine from '../models/machine.js'; // Import the Mongoose model for Machine
 
 // Function to create a new machine document
@@ -6,7 +7,9 @@ export const createMachine = async (req, res) => {
     const { name, description } = req.body;
     const newMachine = new Machine({ name, description });
     const savedMachine = await newMachine.save();
-    res.status(201).json({ message: 'Machine created successfully', machine: savedMachine });
+    res
+      .status(201)
+      .json({ message: 'Machine created successfully', machine: savedMachine });
   } catch (error) {
     console.error('Error creating machine:', error);
     res.status(500).json({ error: 'Failed to create machine' });
@@ -43,11 +46,16 @@ export const getMachineById = async (req, res) => {
 export const updateMachineById = async (req, res) => {
   const { id } = req.params;
   try {
-    const updatedMachine = await Machine.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedMachine = await Machine.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     if (!updatedMachine) {
       return res.status(404).json({ error: 'Machine not found' });
     }
-    res.status(200).json({ message: 'Machine updated successfully', machine: updatedMachine });
+    res.status(200).json({
+      message: 'Machine updated successfully',
+      machine: updatedMachine,
+    });
   } catch (error) {
     console.error('Error updating machine:', error);
     res.status(500).json({ error: 'Failed to update machine' });
@@ -62,7 +70,10 @@ export const deleteMachineById = async (req, res) => {
     if (!deletedMachine) {
       return res.status(404).json({ error: 'Machine not found' });
     }
-    res.status(200).json({ message: 'Machine deleted successfully', machine: deletedMachine });
+    res.status(200).json({
+      message: 'Machine deleted successfully',
+      machine: deletedMachine,
+    });
   } catch (error) {
     console.error('Error deleting machine:', error);
     res.status(500).json({ error: 'Failed to delete machine' });

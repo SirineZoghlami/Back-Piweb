@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 // Define the schema for the facture_steg model
-const factureStegSchema = new mongoose.Schema({
+const factureStegSchema = new mongoose.Schema(
+  {
     numfacture: String,
     mois: String,
     annee: Number,
@@ -57,8 +58,10 @@ const factureStegSchema = new mongoose.Schema({
     consommation_cible_mois: Number,
     fichier: String,
     nom_facture: String,
-    datefacture: Date
-}, { collection: 'facture_steg' }); // Specify the collection name here
+    datefacture: Date,
+  },
+  { collection: 'facture_steg' }
+); // Specify the collection name here
 
 // Create the facture_steg model using the schema
 const FactureSteg = mongoose.model('FactureSteg', factureStegSchema);
