@@ -5,7 +5,8 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 script {
-                    sh('npm install')
+                    // Install Node.js dependencies
+                    sh 'npm install'
                 }
             }
         }
@@ -13,7 +14,8 @@ pipeline {
         stage('Unit Test') {
             steps {
                 script {
-                    sh('npm test')
+                    // Run Jest tests
+                    sh 'npm test'
                 }
             }
         }
