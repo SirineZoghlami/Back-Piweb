@@ -10,6 +10,9 @@ import Armoire from '../models/armoire';
 // Mocking the Mongoose model
 jest.mock('../models/armoire');
 
+// Mock console.error
+console.error = jest.fn();
+
 describe('Armoire Controller', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -33,8 +36,8 @@ describe('Armoire Controller', () => {
 
       await createArmoire(req, res);
 
-      expect(res.status).toBe(201);
-      expect(res.json).toEqual({
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith({
         message: 'Armoire created successfully',
         armoire: savedArmoire,
       });
@@ -67,24 +70,19 @@ describe('Armoire Controller', () => {
   });
 
   describe('getAllArmoires', () => {
-    it('should get all armories', async () => {
+    it('should retrieve all armories', async () => {
       const req = {};
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-      const mockArmories = [
-        {
-          /* mock armoire data */
-        },
-        {
-          /* mock armoire data */
-        },
+      const armories = [
+        /* mock array of armories */
       ];
-      Armoire.find.mockResolvedValueOnce(mockArmories);
+      Armoire.find.mockResolvedValueOnce(armories);
 
       await getAllArmoires(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(mockArmories);
+      expect(res.json).toHaveBeenCalledWith(armories);
     });
 
     it('should handle errors during retrieval of armories', async () => {
@@ -102,40 +100,28 @@ describe('Armoire Controller', () => {
       );
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
-        error: 'Failed to retrieve armories',
+        error: 'Failed to retrieve armoires',
       });
     });
   });
 
   describe('getArmoireById', () => {
-    it('should get an armoire by ID', async () => {
+    it('should retrieve an armoire by its ID', async () => {
       const req = { params: { id: 'mockId' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
-      const mockArmoire = {
+      const armoire = {
         /* mock armoire data */
       };
-      Armoire.findById.mockResolvedValueOnce(mockArmoire);
+      Armoire.findById.mockResolvedValueOnce(armoire);
 
       await getArmoireById(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith(mockArmoire);
+      expect(res.json).toHaveBeenCalledWith(armoire);
     });
 
-    it('should handle error when armoire by ID is not found', async () => {
-      const req = { params: { id: 'nonExistentId' } };
-      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-
-      Armoire.findById.mockResolvedValueOnce(null);
-
-      await getArmoireById(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Armoire not found' });
-    });
-
-    it('should handle errors during retrieval of armoire by ID', async () => {
+    it('should handle errors during retrieval of an armoire by its ID', async () => {
       const req = { params: { id: 'mockId' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
@@ -153,14 +139,26 @@ describe('Armoire Controller', () => {
         error: 'Failed to retrieve armoire',
       });
     });
+
+    it('should return 404 if armoire is not found by its ID', async () => {
+      const req = { params: { id: 'nonExistentId' } };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      Armoire.findById.mockResolvedValueOnce(null);
+
+      await getArmoireById(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Armoire not found' });
+    });
   });
 
   describe('updateArmoire', () => {
-    it('should update an armoire by ID', async () => {
+    it('should update an armoire by its ID', async () => {
       const req = {
         params: { id: 'mockId' },
         body: {
-          /* updated armoire data */
+          /* mock updated armoire data */
         },
       };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -179,28 +177,11 @@ describe('Armoire Controller', () => {
       });
     });
 
-    it('should handle error when armoire by ID is not found during update', async () => {
-      const req = {
-        params: { id: 'nonExistentId' },
-        body: {
-          /* updated armoire data */
-        },
-      };
-      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-
-      Armoire.findByIdAndUpdate.mockResolvedValueOnce(null);
-
-      await updateArmoire(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Armoire not found' });
-    });
-
-    it('should handle errors during armoire update', async () => {
+    it('should handle errors during update of an armoire by its ID', async () => {
       const req = {
         params: { id: 'mockId' },
         body: {
-          /* updated armoire data */
+          /* mock updated armoire data */
         },
       };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -219,10 +200,27 @@ describe('Armoire Controller', () => {
         error: 'Failed to update armoire',
       });
     });
+
+    it('should return 404 if armoire is not found for update by its ID', async () => {
+      const req = {
+        params: { id: 'nonExistentId' },
+        body: {
+          /* mock updated armoire data */
+        },
+      };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      Armoire.findByIdAndUpdate.mockResolvedValueOnce(null);
+
+      await updateArmoire(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Armoire not found' });
+    });
   });
 
   describe('deleteArmoire', () => {
-    it('should delete an armoire by ID', async () => {
+    it('should delete an armoire by its ID', async () => {
       const req = { params: { id: 'mockId' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
@@ -240,19 +238,7 @@ describe('Armoire Controller', () => {
       });
     });
 
-    it('should handle error when armoire by ID is not found during deletion', async () => {
-      const req = { params: { id: 'nonExistentId' } };
-      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-
-      Armoire.findByIdAndDelete.mockResolvedValueOnce(null);
-
-      await deleteArmoire(req, res);
-
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Armoire not found' });
-    });
-
-    it('should handle errors during armoire deletion', async () => {
+    it('should handle errors during deletion of an armoire by its ID', async () => {
       const req = { params: { id: 'mockId' } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
@@ -269,6 +255,18 @@ describe('Armoire Controller', () => {
       expect(res.json).toHaveBeenCalledWith({
         error: 'Failed to delete armoire',
       });
+    });
+
+    it('should return 404 if armoire is not found for deletion by its ID', async () => {
+      const req = { params: { id: 'nonExistentId' } };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      Armoire.findByIdAndDelete.mockResolvedValueOnce(null);
+
+      await deleteArmoire(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Armoire not found' });
     });
   });
 });
