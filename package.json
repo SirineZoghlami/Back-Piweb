@@ -4,7 +4,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server/server.js"
+    "dev": "nodemon server/server.js",
+    "build": "babel server -d dist"
+
   },
   "license": "MIT",
   "babel": {
