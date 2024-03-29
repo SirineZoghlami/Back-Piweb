@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to the Nexus repository
-                    sh 'docker push $registry/nodemongoapp:5.0'
+                     sh 'docker push ${registry}/sirine11/nodemongoapp'
                 }
             }
         }
