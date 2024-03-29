@@ -50,14 +50,17 @@ pipeline {
                 }
             }
         }
-   // Uploading Docker images into Nexus Registry
-stage('Deploy to Nexus') {
-steps{ 
-script {
-docker.withRegistry("http://"+registry,
-registryCredentials ) {
-sh('docker push $registry/nodemongoapp:5.0 ')
+        stage('Deploy to Nexus') {
+            steps {
+                script {
+                    // Login to the Nexus repository (if necessary)
+                    sh 'docker login -u admin -p nexus 92.168.1.19:8081'
+                    
+                    // Push the Docker image to the Nexus repository
+                    sh 'docker push 92.168.1.19:8081/nodemongoapp:5.0'
+                }
+            }
+        }
+    }
 }
-} }
-}
-    }}
+ 
