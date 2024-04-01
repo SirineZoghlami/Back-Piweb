@@ -58,7 +58,7 @@ steps{
 script {
 docker.withRegistry("http://"+registry,
 registryCredentials ) {
-sh('docker push $registry/nodemongoapp:1.0 ')
+sh('docker push $registry/nodemongoapp:6.0 ')
 }
 }
 }
