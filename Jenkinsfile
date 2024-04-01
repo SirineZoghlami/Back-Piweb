@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-   environment {
+    environment {
         registryCredentials = "nexus"
         registry = "http://92.168.1.19:8081/repository/docker-repo/"
         imageName = "nodemongoapp"
@@ -9,8 +9,7 @@ pipeline {
     }
 
     stages {
-
-          stage('Checkout') {
+        stage('Checkout') {
             steps {
                 // Checkout the specific branch
                 git branch: 'ZoghlamiSirine', credentialsId: 'github-piweb-backend-token', url: 'https://github.com/MarwenMnx/Back-Piweb.git'
@@ -24,7 +23,6 @@ pipeline {
                 }
             }
         }
-
         stage('Unit Test') {
             steps {
                 script {
@@ -33,7 +31,6 @@ pipeline {
                 }
             }
         }
-
         stage('SonarQube Analysis') {
             steps {
                 script {  
@@ -44,7 +41,6 @@ pipeline {
                 } 
             }
         }
-
         stage('Build application') {
             steps {
                 script {
@@ -52,14 +48,14 @@ pipeline {
                 }
             }
         }
-
         stage('Building images (node and mongo)') {
             steps {
                 script {
                     sh 'docker-compose build'
                 }
             }
-   stage('Deploy to Nexus') {
+        }
+        stage('Deploy to Nexus') {
             steps {
                 script {
                     docker.withRegistry(registry, registryCredentials) {
