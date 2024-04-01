@@ -7,6 +7,13 @@ pipeline {
        }
 
     stages {
+
+         stage('Checkout') {
+            steps {
+                // Checkout the specific branch
+                git branch: 'ZoghlamiSirine', credentialsId: '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', url: 'https://github.com/MarwenMnx/Back-Piweb.git'
+            }
+        }
         stage('Install dependencies') {
             steps {
                 script {
