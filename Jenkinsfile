@@ -11,7 +11,6 @@ pipeline {
          stage('Checkout') {
             steps {
                 // Checkout the specific branch
-                git branch: 'ZoghlamiSirine', credentialsId: 'github-piweb-backend-token, url: 'https://github.com/MarwenMnx/Back-Piweb.git'
             }
         }
         stage('Install dependencies') {
