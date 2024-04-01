@@ -8,11 +8,7 @@ pipeline {
 
     stages {
 
-         stage('Checkout') {
-            steps {
-                // Checkout the specific branch
-            }
-        }
+        
         stage('Install dependencies') {
             steps {
                 script {
