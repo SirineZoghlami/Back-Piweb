@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-  environment {
+   environment {
         registryCredentials = "nexus"
-        registry = "92.168.1.19:8081/repository/docker-repo/"
+        registry = "http://92.168.1.19:8081/repository/docker-repo/"
         imageName = "nodemongoapp"
         imageVersion = "5.0"
     }
@@ -59,8 +59,6 @@ pipeline {
                     sh 'docker-compose build'
                 }
             }
-        }
-          //  Uploading Docker images into Nexus Registry
    stage('Deploy to Nexus') {
             steps {
                 script {
