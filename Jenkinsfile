@@ -2,9 +2,11 @@ pipeline {
     agent any
 
   environment {
-            registryCredentials = "nexus"
-            registry = "92.168.1.19:8081"
-       }
+        registryCredentials = "nexus"
+        registry = "92.168.1.19:8081/repository/docker-repo/"
+        imageName = "nodemongoapp"
+        imageVersion = "5.0"
+    }
 
     stages {
 
@@ -62,9 +64,9 @@ pipeline {
    stage('Deploy to Nexus') {
             steps {
                 script {
-                    docker.withRegistry("http://${registry}", registryCredentials) {
-                        sh('docker tag sirine11/nodemongoapp:5.0 $registry/sirine11/nodemongoapp:5.0')
-                        sh('docker push $registry/sirine11/nodemongoapp:5.0')
+                    docker.withRegistry(registry, registryCredentials) {
+                        sh "docker tag ${imageName}:${imageVersion} ${registry}${imageName}:${imageVersion}"
+                        sh "docker push ${registry}${imageName}:${imageVersion}"
                     }
                 }
             }
