@@ -4,4 +4,4 @@ COPY . /app
 RUN npm install
 RUN npm run build-dev
 EXPOSE 5000
-CMD ["npm", "run dev"]
+CMD ["npm", "npm run dev"]
