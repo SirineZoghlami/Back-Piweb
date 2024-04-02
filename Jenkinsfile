@@ -76,5 +76,25 @@ sh('docker-compose up -d ')
 }
 }
 
+
+stage("Run Prometheus"){
+      steps{
+ 
+        script{
+
+        sh('docker start prometheus')
+
+        }
+      }
     }
+     stage("Run Grafana"){ 
+      steps{
+
+        script{
+        sh('docker start grafana')
+        }
+      }
+    }
+  } 
+
 }
