@@ -8,7 +8,9 @@ import  mongoose from 'mongoose';
 import userRouter from './routes/api/user.js';
 import alarmeRouter from './routes/api/AirAlarme.js';
 import typealarmeRouter from './routes/api/Air_Typealarme.js';
-import usineRouter from './routes/api/Usine.js'
+import usineRouter from './routes/api/Usine.js';
+import entretienRouter from './routes/api/Air_Entretien.js';
+import equipementRouter from './routes/api/Air_Equipement.js';
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ app.use('/api/users', userRouter);
 app.use('/api/airalarmes', alarmeRouter);
 app.use('/api/airTypeAlarme', typealarmeRouter);
 app.use('/api/usine', usineRouter);
+app.use('/api/entretiens',entretienRouter);
+app.use('/api/equipements', equipementRouter);
 
 
 app.get('/api', (req, res) => {

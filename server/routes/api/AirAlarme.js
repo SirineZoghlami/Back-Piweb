@@ -22,7 +22,7 @@ alarmeRouter.post('/add', async (req, res) => {
 // **READ (GET)**
 
 // Get all air alarms
-alarmeRouter.get('/airalarmes', async (req, res) => {
+alarmeRouter.get('/get', async (req, res) => {
   try {
     const airalarmes = await AirAlarme.find();
     res.json(airalarmes);
@@ -33,7 +33,7 @@ alarmeRouter.get('/airalarmes', async (req, res) => {
 });
 
 // Get air alarm by ID
-alarmeRouter.get('/airalarmes/:id', async (req, res) => {
+alarmeRouter.get('/get/:id', async (req, res) => {
   try {
     const airAlarme = await AirAlarme.findById(req.params.id);
     if (!airAlarme) {
@@ -48,7 +48,7 @@ alarmeRouter.get('/airalarmes/:id', async (req, res) => {
 
 // **UPDATE (PUT)**
 
-alarmeRouter.put('/airalarmes/:id', async (req, res) => {
+alarmeRouter.put('/put/:id', async (req, res) => {
   try {
     const { id, typealarmeId, equipementairId, dateAlarme, heureAlarme, description, etatvu } = req.body;
     const updatedAirAlarme = await AirAlarme.findByIdAndUpdate(
@@ -68,7 +68,7 @@ alarmeRouter.put('/airalarmes/:id', async (req, res) => {
 
 // **DELETE (DELETE)**
 
-alarmeRouter.delete('/airalarmes/:id', async (req, res) => {
+alarmeRouter.delete('/delete/:id', async (req, res) => {
   try {
     const deletedAirAlarme = await AirAlarme.findByIdAndDelete(req.params.id);
     if (!deletedAirAlarme) {
@@ -91,7 +91,7 @@ alarmeRouter.get('/equipements/:equipementId/airalarmes', async (req, res) => {
   }
 });
 //Marquer une alarme d'air comprimé comme vue (changement de l'état "etatvu") 
-alarmeRouter.put('/airalarmes/:id/vue', async (req, res) => {
+alarmeRouter.put('/:id/vue', async (req, res) => {
   try {
     const alarme = await AirAlarme.findByIdAndUpdate(req.params.id, { etatvu: true }, { new: true });
     if (!alarme) {
