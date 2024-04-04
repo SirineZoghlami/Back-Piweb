@@ -1,7 +1,32 @@
 import express from 'express';
+import nodemailer from 'nodemailer';
 import AirAlarme from '../../models/airAlarme.js';
 
 const alarmeRouter = express.Router();
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: 'lachkhemines70@gmail.com',
+      pass: 'spnu nlvj ashp efmv'
+  }
+});
+alarmeRouter.post('/envoyer-email', (req, res) => {
+  const mailOptions = {
+      from: 'lachkhemines70@gmail.com',
+      to: 'lachkhemjamel@gmail.com',
+      subject: 'Alarme sur la machine d\'air comprimé',
+      text: 'Il y a une alarme sur la machine d\'air comprimé. Veuillez vérifier.'
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        console.error(error);
+        res.status(500).send('Erreur lors de l\'envoi de l\'e-mail');
+    } else {
+        console.log('E-mail envoyé: ' + info.response);
+        res.send('E-mail envoyé avec succès');
+    }
+});
+});
 
 
 alarmeRouter.post('/add', async (req, res) => {

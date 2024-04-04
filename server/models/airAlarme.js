@@ -13,7 +13,7 @@ const AirAlarmeSchema = new Schema({
   },
   equipementairId: {
     type: Number,
-    required: true,
+    required: true, 
   },
   dateAlarme: {
     type: Date,
