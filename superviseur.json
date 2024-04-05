@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "mail": {
+            "type": "string"
+        },
+        "poste": {
+            "type": "string"
+        },
+        "tel": {
+            "type": "number"
+        },
+        "nom": {
+            "type": "string"
+        },
+        "prenom": {
+            "type": "string"
+        }
+    },
+    "required": ["nom", "prenom", "tel", "mail", "poste"]
+}
