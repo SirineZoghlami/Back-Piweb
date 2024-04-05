@@ -14,24 +14,16 @@ export const createArmoire = async (req, res) => {
   }
 };
 
-//// Function to retrieve all armories with pagination
+// Function to retrieve all armories
 export const getAllArmoires = async (req, res) => {
-  const { page = 1, limit = 5 } = req.query; // Default page to 1 and limit to 5 per page
   try {
-    const skip = (page - 1) * limit; // Calculate number of documents to skip
-    const armoires = await Armoire.find().skip(skip).limit(limit);
-    
-    const totalCount = await Armoire.countDocuments(); // Get total count of armories
-    res.set('X-Total-Count', totalCount); // Set total count header
-    
+    const armoires = await Armoire.find();
     res.status(200).json(armoires);
   } catch (error) {
     console.error('Error retrieving armoires:', error);
     res.status(500).json({ error: 'Failed to retrieve armoires' });
   }
 };
-
-
 
 // Function to retrieve an armoire by its ID
 // eslint-disable-next-line consistent-return
