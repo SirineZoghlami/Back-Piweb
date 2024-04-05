@@ -9,6 +9,14 @@ import config from './config/config.js';
 import machineRoutes from './server/routes/api/machineRoutes.js';
 import armoireRoutes from './server/routes/api/armoireRoutes.js'; 
 import factureRoutes from './server/routes/api/factureRoutes.js';
+
+import alarmeRouter from './server/routes/api/AirAlarme.js';
+import typealarmeRouter from './server/routes/api/Air_Typealarme.js';
+import usineRouter from './server/routes/api/Usine.js';
+import entretienRouter from './server/routes/api/Air_Entretien.js';
+import equipementRouter from './server/routes/api/Air_Equipement.js';
+dotenv.config();
+
 dotenv.config();
 
 const app = express();
@@ -29,6 +37,14 @@ app.use(express.static('./dist/'));
 app.use('/api', machineRoutes);
 app.use('/api', armoireRoutes);
 app.use('/api',factureRoutes);
+
+app.use('/api/airalarmes', alarmeRouter);
+app.use('/api/airTypeAlarme', typealarmeRouter);
+app.use('/api/usine', usineRouter);
+app.use('/api/entretiens',entretienRouter);
+app.use('/api/equipements', equipementRouter);
+
+
 
 app.get('/api', (req, res) => {
   res.json({
