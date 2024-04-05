@@ -1,0 +1,117 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "marque": {
+            "type": "string"
+        },
+        "modele": {
+            "type": "string"
+        },
+        "nom": {
+            "type": "string"
+        },
+        "puissance_max": {
+            "type": "number"
+        },
+        "debit": {
+            "type": "number"
+        },
+        "puissancemoteur": {
+            "type": "number"
+        },
+        "nserie": {
+            "type": "number"
+        },
+        "pressioncharge": {
+            "type": "number"
+        },
+        "pressiondecharge": {
+            "type": "number"
+        },
+        "anneefabrication": {
+            "type": "number"
+        },
+        "type": {
+            "type": "string"
+        },
+        "alertentretien": {
+            "type": "string"
+        },
+        "dossier": {
+            "type": "string"
+        },
+        "adresseip": {
+            "type": "string"
+        },
+        "equipementair": {
+            "type": "string"
+        },
+        "superviseur": {
+            "type": "string"
+        },
+        "date_entretien": {
+            "type": "string",
+            "format": "date"
+        },
+        "dateperiodesecheur": {
+            "type": "string",
+            "format": "date"
+        },
+        "nbrhprochain": {
+            "type": "number"
+        },
+        "hfonctionnement": {
+            "type": "number"
+        },
+        "remarque": {
+            "type": "string"
+        },
+        "niveauprobleme": {
+            "type": "string"
+        },
+        "dateajout": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "datemodif": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "datesuppression": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "suppression": {
+            "type": "boolean"
+        }
+    },
+    "required": [
+        "marque",
+        "modele",
+        "nom",
+        "puissance_max",
+        "debit",
+        "puissancemoteur",
+        "nserie",
+        "pressioncharge",
+        "pressiondecharge",
+        "anneefabrication",
+        "type",
+        "alertentretien",
+        "dossier",
+        "adresseip",
+        "equipementair",
+        "superviseur",
+        "date_entretien",
+        "dateperiodesecheur",
+        "nbrhprochain",
+        "hfonctionnement",
+        "remarque",
+        "niveauprobleme",
+        "dateajout",
+        "datemodif",
+        "datesuppression",
+        "suppression"
+    ]
+}
