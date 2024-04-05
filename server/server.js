@@ -1,14 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import mongoose from 'mongoose';
-import config from '../config/config.js'; 
-
-import machineRoutes from './routes/api/machineRoutes.js';
-import armoireRoutes from './routes/api/armoireRoutes.js'; 
-import factureRoutes from './routes/api/factureRoutes.js';
+import  bodyParser from 'body-parser';
+import  cors  from 'cors';
+import  mongoose from 'mongoose';
+import userRouter from './routes/api/user.js'
 dotenv.config();
 
 const app = express();
@@ -26,9 +22,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static('./dist/'));
-app.use('/api', machineRoutes);
-app.use('/api', armoireRoutes);
-app.use('/api',factureRoutes);
+
+
+
+// Use routes
+app.use('/api/users', userRouter);
 
 app.get('/api', (req, res) => {
   res.json({
@@ -36,18 +34,9 @@ app.get('/api', (req, res) => {
   });
 });
 
-const { uri, username, password, dbName } = config.mongo;
+const CONNECTION_URL = `mongodb+srv://nejimarwan21:${dbpassword}@piwebcluster.yq3u1v6.mongodb.net/`;
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true, })
+.then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)) )
+.catch((error) => console.log(error.message));
 
-mongoose.connect(`mongodb+srv://${username}:${password}@${uri}/${dbName}`)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
 
-// Middleware to log outgoing responses
-app.use((req, res, next) => {
-  res.on('finish', () => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} ${res.statusCode}`);
-  });
-  next();
-});
-
-app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
