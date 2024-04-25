@@ -11,7 +11,7 @@ dotenv.config();
 
 const app = express();
 
-const { PORT = 5000 ,dbpassword} = process.env;
+const { PORT = 8000 ,dbpassword} = process.env;
 
 app.use(helmet());
 app.use(bodyParser.json()); 
