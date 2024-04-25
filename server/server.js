@@ -6,7 +6,6 @@ import  cors  from 'cors';
 import  mongoose from 'mongoose';
 import userRouter from './routes/api/user.js';
 import {authRouter} from './routes/api/auth.js';
-import airspvsRouter from './routes/api/airsuperviseur.js';
 dotenv.config();
 
 
@@ -22,7 +21,6 @@ app.use(express.static('./dist/'));
 
 
 
-app.use('/api/airspvs', airspvsRouter);
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 
@@ -36,5 +34,4 @@ const CONNECTION_URL = `mongodb+srv://nejimarwan21:${dbpassword}@piwebcluster.yq
 mongoose.connect(CONNECTION_URL, {  })
 .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)) )
 .catch((error) => console.log(error.message));
-
 

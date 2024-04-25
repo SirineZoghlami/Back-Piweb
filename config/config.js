@@ -1,6 +1,6 @@
 module.exports = () => ({
   mongo: {
-    pw :process.env.dbpassword,
+    pw: process.env.dbpassword,
     uri: process.env.DB_URI,
   },
 });
