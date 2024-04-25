@@ -16,7 +16,7 @@ import airspvsRouter from './routes/api/airsuperviseur.js';
 dotenv.config();
 
 const app = express();
-const { PORT = 5000, dbpassword } = process.env;
+const { PORT = 8000, dbpassword } = process.env;
 
 // Middleware to log incoming requests
 app.use((req, res, next) => {
