@@ -5,7 +5,7 @@ import  bodyParser from 'body-parser';
 import  cors  from 'cors';
 import  mongoose from 'mongoose';
 import userRouter from './routes/api/user.js';
-import {authRouter} from './routes/api/auth.js';
+import authRouter from './routes/api/auth.js';
 dotenv.config();
 
 
