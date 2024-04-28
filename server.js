@@ -9,6 +9,9 @@ import config from './config/config.js';
 import machineRoutes from './server/routes/api/machineRoutes.js';
 import armoireRoutes from './server/routes/api/armoireRoutes.js'; 
 import factureRoutes from './server/routes/api/factureRoutes.js';
+import airConsomGlobalRoutes from './server/routes/api/airConsomglobalRoutes.js';
+import airLocalCompresseurRoutes from './server/routes/api/airLocalCompresseurRoutes.js'; // Import the air local compresseur routes
+
 dotenv.config();
 
 const app = express();
@@ -29,6 +32,11 @@ app.use(express.static('./dist/'));
 app.use('/api', machineRoutes);
 app.use('/api', armoireRoutes);
 app.use('/api',factureRoutes);
+app.use('/api', airConsomGlobalRoutes);
+app.use('/api', airLocalCompresseurRoutes);
+
+//app.use('/api/air_consomglobal', airConsomGlobalRoutes);
+
 
 app.get('/api', (req, res) => {
   res.json({
